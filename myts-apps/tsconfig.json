@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "ES6",
+        "outDir": "./build",
+        "watch": true 
+    },
+    "exclude": [
+        "node_modules"
+    ],
+    
+    "files": [
+        "src/index.ts"
+    ]
+}
