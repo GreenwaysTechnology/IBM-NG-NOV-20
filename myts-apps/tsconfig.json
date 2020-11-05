@@ -3,7 +3,9 @@
         "module": "commonjs",
         "target": "ES6",
         "outDir": "./build",
-        "watch": true 
+        "watch": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
     },
     "exclude": [
         "node_modules"

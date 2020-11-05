@@ -1,0 +1,2518 @@
+
+
+Angular :
+
+What is angular?
+ In nutshell angular is javascript mvc framework to build client side single page
+web applications.
+
+Angular is written using "Typescript","HTML","CSS".
+******************************************************************************************
+Angular prvoides platform and apis to build end to applications.
+
+****************************************************************************************
+
+Angular Tech stack:
+
+1.HTML 5
+2.CSS 3
+3.Typescript
+4.Reactive Programming : rxjs
+********************************
+5.Webpack : Automation
+ -dev
+ -testing
+ -production
+*************************
+6.StackBlitz
+7.NativeScript 
+
+****************************************************************************************
+
+Angular Framework Architecture:
+...............................
+
+Angular framework is collection of many projects.
+
+Each project is built by team of developers, and finally they coimbine as single product.
+
+
+How the project is represented?
+
+ Each project is represented with namespace.
+
+eg:
+    supercart /ibmsupercart -code name given the project
+      -namespace
+  
+ paymentgateway
+
+     ibmsupercart/paymentgateway - namespacing.
+
+in angular all projects are namespaced
+
+  @ibmsupercart/paymentgateway
+
+  @angular/core
+  @angular/cli
+  @angular/common
+  @angular/forms
+  @angular/common/http
+ etc....
+
+What is @angular? --@-->npm private package
+ 
+Types of angular framework packages
+
+1.angular/google team packages - @angular
+2.thrid party - rxjs
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+Starts project : 
+
+@angular/cli Project:
+
+ 1.used to create project layouts
+ 2.used for code creations and automations
+cli project is powered with webpack.
+
+https://cli.angular.io/
+
+/////
+
+steps:
+npm install -g @angular/cli
+ng new my-dream-app
+cd my-dream-app
+ng serve
+
+> npm install @angular/cli --save-dev
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+Angular basic concepts:
+
+
+1.Angular objects
+2.Dependency Injection
+3.MVC
+3.Work flow
+4.Data Binding
+ 
+
+Angular is object oriented frame work:
+ in angular every thing is object
+
+
+
+Angular Application Architecture:
+.................................
+Application is built by using object oriented model =>Object
+System
+
+In OO Primary actors  are "Objects".
+
+Since angular is written in TS,TS is oo language, We build using objects.
+
+Angular is pure object oriented system.
+In Angular every thing object.
+
+Application is collection of objects and static assets
+
+Application itself object called container object.
+
+Application object in angular called as "Module".
+
+Objects in Angular:
+
+Types of Objects
+1.infra objects -Infra Structure Object
+   ->which provides app infra structure.
+  Service -> Data and biz logic
+2.Domain Objects
+   ->To represent domain-Biz - Model
+ eg: Customer,Employee,Order,Invoice,Bill etc...
+
+Types of Infra Objects:
+......................
+1.Module
+   container object,which contains object
+2.Component
+   which represents GUI Elements
+3.Directive
+   which represents GUI Elements
+4.Service
+   Which represents data and biz logic
+5.Pipe
+  which supports GUI elements for formatting.
+
+
+Infra objects are created using constructor pattern
+  =>ES 6 class
+DOMain objects are created by using literal objects
+  ->plain literal , array
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+How objects are created? who is creating objects?
+
+
+class CurdRepository {
+      public save() {
+            console.log('Save method')
+      }
+      public findAll() {
+            console.log('Find All method')
+      }
+      public findById(id: number = 1) {
+            console.log('findById method')
+      }
+      public remove(id: number = 1) {
+            console.log('remove method')
+      }
+      public update(id: number = 1) {
+            console.log('update method')
+      }
+
+}
+class CustomerService {
+      //has-a relationship
+      constructor(private repository: CurdRepository) {
+      }
+      public save() {
+            this.repository.save();
+      }
+      public findAll() {
+            this.repository.findAll()
+      }
+      public findById(id: number = 1) {
+            this.repository.findById(1);
+      }
+      public remove(id: number = 1) {
+            this.repository.remove(id);
+      }
+      public update(id: number = 1) {
+            this.repository.update
+      }
+
+}
+
+//dependency injection
+//create repositort
+ let repository = new CurdRepository()
+
+//create service and then connect with repository.
+
+let service = new CustomerService(repository);
+service.save()
+
+imagine in realtime system, do you think that this possible?
+ -creating objects
+ -linking them in order
+
+
+It is not possible, then how to solve it?
+	https://martinfowler.com/articles/injection.html
+
+Inversion of Control Containers and the Dependency Injection pattern
+
+  ->Instead of developer creating and inject object through code, we will introduct
+ automation
+     "ioc containers"/
+
+Since ng is large object system, we need ioc, so ng provides built in ioc containers
+  -anguar di
+
+*****************************************************************************************
+
+Angular and MVC:
+
+Angular uses most popular web design pattern called m-model view- controller.
+
+View - GUI
+Controller -Object- Component
+Model --Object - biz objects-customer,order,invoice....
+
+*******************************************************************************************
+HTML:
+
+how html works:
+
+HTML-Markup language
+...................
+
+HTML(index.html)----Browser---read--compiled---image(tree)|runtime
+	tree--start allocating memory----->Linked List--->Tree
+
+ Stages of html                  
+   Within Browser Memory            Inside Javascript Engine
+       Tree-LinkedList(c) ---->     Object tree(DOM Tree)
+
+every html element is linked node inside browser.
+every html element inside js engine is object-dom
+.........................................................................................
+Note:
+
+ Every Element is Object
+ h1 ---Object
+ div ---Object
+ p ---Object
+ span ---Object
+
+What we are going to do?
+ we are going to mainipulates theses objects---DOM Programming.
+********************************************************************************************
+
+Custom Elements and attributes:
+
+ <h1>----feed to browser ---->Compiler verfies this element is ready made or not
+				|
+			    Yes
+			     ----starts creating node
+
+
+ <hello>----feed to browser----compiler
+				  |
+				 no 
+				   - error : unKnownelement--parsed as text
+
+After HTML5 , HTML5 Spec added new feature: custom elements
+
+ <hello>----feed to browser----compiler
+				  |
+				 no 
+				   - Attach javascript to treate this is special element
+
+Angular uses custom elements every where?
+
+
+
+
+HTML 5
+  ->CUSTOM ELEMENTS
+   ->you can have your own html element,teach browser how to render it?
+  <app-root> ---->js--->{ }
+
+How to teach the browser?
+   via js
+
+How you are going to do in angular?
+  ->create collection of custom elements
+
+ <app-grid>------>Angular Code---Component--->JS Code
+
+Application:
+
+         <app-grid>      | class GridComponent{}
+                         |
+                         |
+
+Angular is all about custom tags(html) with behaviour(js).
+
+html is tree mode
+  
+  <body> -parent
+      <div>  -child
+	 <div> -child
+	     <h1>Hello</h>
+             <p>hai</p> 
+	 </div>
+      </div>
+
+each element or collection of elements represent by objects
+ if you combine all objects in order---> tree
+	=>Object tree=>Component Tree
+
+In html you can have only one body element(root).
+Similar rule in angular you can have only one root element
+  =>app-root
+	->
+ this app-root element must be inside body element by default.
+
+Custom elements must have naming convention called "keb case /dash case" notation
+<app-header>
+
+Work flow:
+
+ 1.open browser
+ 2.lanuch index.html
+  <body>
+        <app-root></app-root>
+  </body>
+
+ 3.start angular process
+  Angular is 100% modular framework
+  ->main.js==>main.ts
+	------>app.module.js --app.module.ts
+		 --->app.component.js -->app.component.ts
+				-><app-root> -Result
+////////////////////////////////////////////////////////////////////////////////////////
+
+
+Modularity:
+types of modularity
+
+1.ES 6 modularity -> code distribution - source code organization.
+ export,import,export default : files organizati
+
+2.Angular modularity
+	->Runtime object organization
+Angular Modules are used to organize the runtime objects
+
+*********************************************************************************************
+
+Remember: angular is di framework, decorator driven,object oriented,every thing is object.
+
+each object is differiented by decorators
+
+Note: If you have any infra object->class-->decorate
+
+Every infra object is decorated by a decorator
+
+Module,SubModule ->@NgModule
+Component -@Component
+Directive -@Directive
+Pipe->@Pipe
+Service ->@Injectable
+
+How to create infra  objects?
+
+
+steps 
+
+1.declare class
+
+
+class Myclass{
+
+
+}
+
+//let mycls = new MyClass()
+
+2.decorate a class based object type(module,component,directive,pipe,service...)
+based on object type angular provides built in decoratores
+
+@NgModule
+@Component
+@Injectable
+@Pipe
+@Directive
+
+
+@NgModule({})
+export class Myclass{
+
+
+}
+
+
+
+
+
+Component:
+Component:Terminallgy ,coined by MS 1989
+  Resuable object, in General which represent GUI
+ like Button,textbox,label
+
+->Component plays vital role
+  ->Component can act as controller in MVC
+
+Controller:
+  ->VIEW
+  ->Model
+
+View :
+  Runtime representation of USER INTERFACE Elements
+Template: Design Time
+  html + angular markup =>View(HTML) -BY Tag -custom
+
+Component======>Custom tag
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+Every decorator takes parameter:
+
+ 1.which is object ,we call "Decorator meta data"
+
+
+
+steps to create Component
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'ng-databinding';
+}
+
+types of template:
+1.inline  ; part of component definition itself
+2.external template : template written outside
+
+
+
+common errors:
+
+1.element not closed
+
+Errors parsing template: Unexpected closing tag "div". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags ("
+      <div>
+         <h1>IBM Angular Application
+      [ERROR ->]</div>
+  `
+})
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+MVC :
+
+C : Controller - Component : every component controller
+V : View : template
+M : Model: data --can be primitives,objects, arrays
+
+Data binding:
+
+ Transfering data from C---V and V--C
+
+Types of data binding:
+
+1.interpolation
+
+2.Type of binding
+property 
+
+Target : on which binding , can be enabled
+
+Element
+<img [src]="heroImageUrl">
+Component property
+<app-hero-detail [hero]="currentHero"></app-hero-detail>
+Directive 
+<div [ngClass]="{'special': isSpecial}"></div>
+
+3.Type of binding
+Event
+
+Target:
+Element event
+<button (click)="onSave()">Save</button>
+Component event
+<app-hero-detail (deleteRequest)="deleteHero()"></app-hero-detail>
+Directive event
+<div (myClick)="clicked=$event" clickable>click me</div>
+
+4.Two-way	
+Event and property	
+
+Target
+Event and property	
+<input [(ngModel)]="name">
+
+
+5.Attribute	
+Attribute (the exception)
+
+Target
+<button [attr.aria-label]="help">help</button>
+
+
+6.Class	
+class property
+
+Target
+<div [class.special]="isSpecial">Special</div>
+
+7.Style
+style property	
+<button [style.color]="isSpecial ? 'red' : 'green'">
+
+*******************************************************************************************
+
+1.interpolation : model binding
+
+primitive
+
+name:string='xxxx'
+
+{{variable}}
+
+objects
+
+import { Component } from "@angular/core";
+
+/**
+ * Interpolation
+ */
+
+//controller
+@Component({
+  selector : 'app-root', //custom element name
+  templateUrl:'app.component.html' //template---view
+})
+export class AppComponent{
+  
+  //data
+   title:string='IBM -Angular Application'
+   name:string = 'Subramanian'
+   age:number =39;
+   isActive:boolean = true;
+
+   //objects //todo object
+   todo = {
+    userId: 1,
+    id: 1,
+    title: "delectus aut autem",
+    completed: false
+  }
+   
+
+}
+
+<div>
+  <h1>{{title}}</h1>
+  <h2>Data Binding : Interplotion</h2>
+   <div>
+     <p>String {{name}}</p>
+     <p>Number {{age}}</p>
+     <p>Boolean {{isActive ? "Active" : "InActive"}}</p>
+     <p>Object</p>
+     <p>Id {{todo.userId}}</p>
+     <p>Title {{todo.title}}</p>
+     <p>Completed {{todo.completed}}</p>
+
+   </div>
+
+</div>
+********************************************************************************************
+Component tree /Object Tree:
+...........................
+
+How to create diffent components can be created?
+
+How to link component links
+
+
+Any object , if you want create 
+
+create class 
+ profile.component.ts
+declare class
+export
+decorate it
+link components - inside app
+di
+
+import { Component } from "@angular/core";
+
+
+@Component({
+    selector :'app-profile',
+    template : `
+       <h1>Profile Page</h1>
+    `
+})
+export class ProfileComponent{
+
+}
+
+common  errors:
+src/app/app.component.html:16:7 - error NG8001: 'app-profile' is not a known element:
+1. If 'app-profile' is an Angular component, then verify that it is part of this module.
+2. If 'app-profile' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+
+16       <app-profile></app-profile>
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:10:15
+    10   templateUrl:'app.component.html' //template---view
+                     ~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+ProfileComponent object created
+
+*****************************************************************************************
+
+Dependency Injection: anguar creates objects and links the objects:
+
+but we need to tell the angular to create those objects
+
+DI Configuration:
+...................
+
+app.module.ts :  container object where we define the object dependency
+
+classification of objects for di:(INFRA objects classifcation)
+.................................
+ - view objects,service objects,module objects
+
+
+1.view objects : related ui
+ @Component,
+ @Directive,
+ @Pipe
+2.service objects : having biz logic and data.
+ @Injectable
+3.module objects -container objects- can be either main or submodule
+@NgModule
+
+
+Module object:
+
+Organize the objects 
+
+Every Application must have one single root container object: app.module.ts
+
+How to create Module Object
+
+1.create file
+2.declare class
+3.decorate with @NgModule
+
+main(Root) / submodlule is decorated @NgModule only
+
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+in submodules "bootstrap" property wont be there.
+
+declartions : all view objects-
+ @Component,
+ @Directive,
+ @Pipe
+
+imports : all submodules
+@NgModule
+
+providers:all service classes
+@Injectable
+
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { ProfileComponent } from './profile.component';
+
+
+@NgModule({
+  //di list: ng wil lookup this list , and create objects and link accordingly
+  declarations:[AppComponent,ProfileComponent],
+  imports : [BrowserModule],
+  providers: [],
+  ///entry point
+  bootstrap: [AppComponent]
+
+})
+export class AppModule{}
+
+
+<div>
+  <h1>{{title}}</h1>
+  <h2>Data Binding : Interplotion</h2>
+   <div>
+     <p>String {{name}}</p>
+     <p>Number {{age}}</p>
+     <p>Boolean {{isActive ? "Active" : "InActive"}}</p>
+     <p>Object</p>
+     <p>Id {{todo.userId}}</p>
+     <p>Title {{todo.title}}</p>
+     <p>Completed {{todo.completed}}</p>
+   </div>
+   <div>
+     <h1>Profile Component Integration</h1>
+      <app-profile></app-profile>
+   </div>
+    
+
+</div>
+
+import { Component } from "@angular/core";
+
+
+@Component({
+    selector :'app-profile',
+    template : `
+       <h1>Profile Page</h1>
+    `
+})
+export class ProfileComponent{
+
+}
+
+
+2.Property binding:
+
+property : attribute
+
+       attribute
+        |
+ <div style="color:red">
+
+custom attribute generally proprety.
+
+[property] -symbol
+
+How to pass data from parent component to child compoent?
+      
+
+<app-profile [propName]=propvalue ></app-profile>
+
+propName = propValue
+
+propValue can be any thing(primitive,object,array)
+
+propValue must be given inside ""
+
+incase if you pass hardcoded string "''"
+
+if you want to read prop inside component.
+
+you have basic idea:
+
+propname inside component and prop name inside is same
+title  =========>title
+
+
+
+
+<div>
+  <h1>{{title}}</h1>
+  <h2>Data Binding : Interplotion</h2>
+   <div>
+     <p>String {{name}}</p>
+     <p>Number {{age}}</p>
+     <p>Boolean {{isActive ? "Active" : "InActive"}}</p>
+     <p>Object</p>
+     <p>Id {{todo.userId}}</p>
+     <p>Title {{todo.title}}</p>
+     <p>Completed {{todo.completed}}</p>
+   </div>
+   <div>
+     <h1>Profile Component Integration</h1>
+      <app-profile 
+      [title]="'IBM Profile Page'"  >
+      </app-profile>
+
+      <app-profile 
+      [screen]="'Profile List'">
+      </app-profile>
+
+      <app-profile 
+      [screen]="screenName">
+      </app-profile>
+   </div>
+    
+
+</div>
+
+
+import { Component } from "@angular/core";
+
+/**
+ * Interpolation
+ */
+
+//controller
+@Component({
+  selector : 'app-root', //custom element name
+  templateUrl:'app.component.html' //template---view
+})
+export class AppComponent{
+  
+  //data
+   title:string='IBM -Angular Application'
+   name:string = 'Subramanian'
+   age:number =39;
+   isActive:boolean = true;
+
+   //profile property vlaue
+   screenName:string = 'New Profile Screen'
+
+   //objects //todo object
+   todo = {
+    userId: 1,
+    id: 1,
+    title: "delectus aut autem",
+    completed: false
+  }
+   
+
+}
+
+
+
+
+import { Component, Input } from "@angular/core";
+
+
+@Component({
+    selector :'app-profile',
+    template : `
+       <h1>{{title}}</h1>
+       <h2>{{mytitle}}</h2>
+    `
+})
+export class ProfileComponent{
+
+    @Input()
+    title:string;
+    @Input('screen')
+    mytitle:string;
+
+
+}
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+HTML Elements and attributes:
+.............................
+
+all static assets : images,docs,json files , must be kept inside assets folder
+
+Attribute Binding:
+
+<img src="imageUrl">
+
+
+<div>
+      <h1>Attribute Binding</h1>
+      <!--Hardcoded image-->
+      <img src="../assets/c0494701.png"/>
+      <!--image through interpolation : it is not recommended-->
+      <img src="{{imageUrl}}"/>
+
+      <!--Image through property binding: attribute binding-->
+      <img [src]="imageUrl"/>
+
+      <div>
+        <!--disabled is boolean attribute and its value is true by default-->
+      <button [disabled]="isEnabled">Save</button>
+      <!--dom attributes , can be changed dynamically using []-->
+      <span [innerHTML]="'inner Value'"></span>
+     </div>
+   </div>
+
+*********************************************************************************************
+
+CSS :  Style,class,dynamic styles using[]
+
+
+types of css
+1.inline style
+  <style>
+  </style>
+2.external style 
+ <link> - myapp.css
+
+thrid party style frameworks
+
+1.bootstrap
+
+steps:
+
+1.npm install bootstrap
+
+2.update angular.json
+  styles["./node_modules/bootstrap/dist/css/bootstrap.css"],
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+                                 css
+				  |
+			-----------------------
+			External           inline
+	bootstrap.css   class              style		
+
+<div class="container">
+<h1 style="color:red">{{title}}</h1>
+
+Angular provides three types of style sheets:
+
+Gobal style
+  -styles.css file
+  -bootstrap.css file
+in style 
+  style
+component specific style
+ -can be represented styles for a particular component only.
+*******************************************************************************************
+
+Property binding and css: dynamic style
+........................................
+
+class="container"
+style="color:red"
+
+ These styles are called static, once it applied cant be changed during rendering.
+
+
+how to change style dynamically or how to apply new style dynamically.
+
+<h1 [style.stylename]="booleancondition ? value1:value2">
+<h2 [class.classname]="booleancondition">  
+ 
+  if booleancondition is true, then style will be applied else wont be applied
+
+********************************************************************************************
+
+Event binding:
+
+js is event driven pl.
+
+types of events
+1.keyboard
+2.mouse events
+3.touch events
+
+(nameoftheEvent) ==>click
+
+  <button (click)="listerner()" class="btn btn-success">Click</button>
+
+If you read input, that input i want to show in screen
+  read input:
+
+Event is object, which is injected into lisnter function automatically.
+
+In Angular how to get event Object?
+Angular provides a special built in variable "$event" 
+$event variable has "Event Object" 
+
+<hr>
+   <h3>Name : {{name}}</h3>
+  <input  class="form-control" (input)="onUpdate($event)" type="text" placeholder="type something">
+
+export class AppComponent{
+
+    name:string = 'foo'
+
+    //listener method
+    onSave(){
+        alert('Save is called!');
+    }
+    onUpdate(e:any){
+        console.log(e.target.value);
+      //update the name variable
+      this.name =e.target.value
+    }
+
+}
+
+Two way data binding:
+....................
+
+If any changes happens on "instancevariable" which is bound on UI,gets updated because of
+events.
+Angular re render the screen for every update.
+
+User-----trigger--(Input)------>Listener is called--->|update the variable---When ever the
+variable is updated--->UI is rerendered.
+
+
+View -----Controller----View
+////////////////////////////////////////////////////////////////////////////////////////////
+
+Code refactoring: 
+1   <input  class="form-control" (input)="message=$event.target.value"   type="text" [value]="message">
+
+2.event+property  [(ngModel)]
+ -ngModel
+     is Built in "DTO" object used to transfer data between view and controller.
+  <h2>City : {{city}}</h2>
+ <input  class="form-control" [(ngModel)]="city"  >
+
+Note; if you get the below error: ngModel is object, which is not availble right now.
+
+src/app/app.component.html:15:31 - error NG8002: Can't bind to 'ngModel' since it isn't a known property of 'input'.
+
+Solution:
+ngModel is part of "@angular/forms" "FormsModule", which must be injected into app.module.ts
+
+import {FormsModule} from '@angular/forms';
+
+@NgModule({
+  //di list: ng wil lookup this list , and create objects and link accordingly
+  declarations:[AppComponent,ProfileComponent],
+  imports : [BrowserModule ,FormsModule],
+  providers: [],
+  ///entry point
+  bootstrap: [AppComponent]
+
+})
+export class AppModule{}
+............................................................................................
+[(ngModel)] : banana in a box notation : WHich is for two way data binding shortcut.
+............................................................................................
+
+Custom Events:
+..............
+Component - Communcation 
+ 
+1.parent - child : via property @Input
+
+2.child - parent : custom events @Output
+
+3.inter components : services and rxjs
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+Child -Parent Communication:
+
+-Via Events : Custom Events:
+
+EventEmitter Object is used to communicate
+@Output
+
+We need to write two components
+
+1.Parent Component
+2.Child Component
+
+
+Use case : if child component clicks button, ---Listener is called---Inside Listerner
+ --Write code to send data To parent.
+
+                            Parent <---EventEmitter<---Child
+**********************************************************************************************
+
+Directives:
+
+ Directive is custom element / attribute..
+
+Types of Directives:
+
+1.Template directive
+   The directive with Template ; all components create template directive
+  <app-root>
+  <app-profile>
+
+@Component is decorator which inherits @Directive
+
+2.Structural directive
+
+  It is one of the "special attribute" directive
+  All structural directive starts with "*" notation.
+
+Why structural directive?
+->change the DOM Layout by adding and removing dom elements : Dom manulation.
+
+Common structural directives
+1.*ngFor : for loop
+2.*ngIf  : if condition
+3.*ngSwitch : switch
+
+
+List /Array rendering:
+......................
+
+Layouts:
+1.List view Layout
+   -ul li
+2.Card View Layout
+  div
+3.Grid View Layout
+  table tr td
+
+
+2.*ngIf  : if condition
+ 
+if you are implementing toggling .
+
+ add or remove dom element dynamically.
+
+Caution : dont add or remove elements dynamically which degrades performances.
+
+inside of that use "hidden" attribute
+
+if...else:
+..........
+ <h1>*ngIf</h1>
+     <button class="btn btn-success" (click)="toggle()">Toggle</button>
+     <!--Show and Hide-->
+     <div *ngIf="!isHidden">
+          <h1>Hello</h1>
+     </div>
+     <!--Show and Hide using hidden property :it is recommended-->
+     <div [hidden]="isHidden">
+        <h1>Hai</h1>
+     </div>
+     <button class="btn btn-success" (click)="toogleEnabled()">Toggle:Ifelse</button>
+    
+    <!--if else lader-->
+    <div *ngIf="isEnabled; else mycondition">
+        <h1>You have Facility!</h1>
+    </div>
+   <ng-template #mycondition>
+      <h1>Sorry! Facility is not availbale</h1>
+   </ng-template>
+
+# : template reference variable
+
+Component :
+ //ngIf
+    isHidden:boolean =false;
+    isEnabled:boolean = false;
+
+    toggle(){
+       this.isHidden  = !this.isHidden;
+    }
+   
+    toogleEnabled(){
+        this.isEnabled = !this.isEnabled;
+
+Progress bar:
+............
+   <h2>
+    <div *ngIf="loading; else notLoading  ">
+      <h2>{{status}}</h2>
+    </div>
+  </h2>
+  <ng-template #notLoading>
+    <div>
+      <h2>{{status}}</h2>
+    </div>
+  </ng-template>
+
+Component code:
+  //progress bar variables
+    loading:boolean = true;
+    status:string = 'Loading......'
+
+    constructor(){
+      //Progress bar time: using timer
+      setTimeout(()=>{
+        this.loading = !this.loading;
+        this.status = 'Finished'
+      },5000)
+
+    }
+
+switch....case:
+*ngSwitch
+
+<div [ngSwitch]="feedback">
+  <p *ngSwitchCase="'good'">Good</p>
+  <p *ngSwitchCase="'verygood'">Very Good</p>
+  <p *ngSwitchCase="'bad'">Bad</p>
+  <p *ngSwitchDefault>Your input is not matching</p>
+
+</div>
+<h1>Switch Case</h1>
+  <div [ngSwitch]="feedback">
+    <p *ngSwitchCase="'good'">Good</p>
+    <p *ngSwitchCase="'verygood'">Very Good</p>
+    <p *ngSwitchCase="'bad'">Bad</p>
+    <p *ngSwitchDefault>Your input is not matching</p>
+  </div>
+
+  <!--Switch case with ng-template-->
+  <div [ngSwitch]="feedback">
+    <ng-template [ngSwitchCase]="'good'">
+      <h3>Good</h3>
+    </ng-template>
+    <ng-template [ngSwitchCase]="'verygood'">
+      <h3>Very Good</h3>
+    </ng-template>
+    <ng-template [ngSwitchCase]="'bad'">
+      <h3>bad</h3>
+    </ng-template>
+    <ng-template ngSwitchDefault>
+      <h3>Your input is not matching</h3>
+    </ng-template>
+  </div>
+
+
+3.Attribute directive :
+
+ Adding extra behaviour to existing dom elements.
+
+eg:
+ <div subu="">
+
+How to create our own attribute directive.
+
+steps
+
+1.declare directive class and decorate
+
+import { Directive } from '@angular/core';
+
+@Directive({
+    selector : '[appHighlight]'
+})
+export class  HighLightDirective{
+    
+}
+
+2.Test directive is working or not
+
+    <h2 appHighlight >High light me</h2>
+
+DOM Maniupulation:
+
+Access Object , change its values
+
+ h2------Object---->change its value
+
+Using js you change it.
+
+ var element = document.getElementByid('xxx')
+
+
+DOM ACCESS INSIDE ANGULAR;
+
+1.INSIDE Directive
+  using "ElementRef" -Object
+
+this.element.nativeElement.style.backgroundColor = "yellow";
+
+Component(Directive) Life Cycle methods:
+
+Component initalization from scrach
+
+-->behind the scene (angular di system)
+ 
+ declartions:[HighLightDirective]--di reads this
+		-->di starts creating object
+			new HighLightDirective()--constructor runs
+ Objective of constructor is to create object only.
+
+After constructor completes 
+   Object is ready.
+
+After that we can do heavy resource intialization tasks.
+  -Ajax calls
+  -web socket calls
+  -Timers 
+  -side effects 
+
+dont write code inside constructors, but it works, this might delay object creations.
+
+Why constructors:
+
+  -Only for dependency grabbing.
+
+
+where we have to write resource intialization tasks.
+
+inside lifecycle methods
+
+->all life cycle methods availbale inside interfaces.
+
+********************************************************************************************
+
+Dynamic highlights : Javascript Event Handling :
+
+import { Directive, ElementRef, HostListener,Input} from '@angular/core';
+
+
+app.highlight.directive.ts
+
+@Directive({
+    selector : '[appHighlight]'
+})
+export class  HighLightDirective{ // implements OnInit{
+
+    @Input()
+    highlightColor: string;
+
+    //element will point on which dom element this directive attached
+    constructor(private element:ElementRef){}
+    ngOnInit(){
+        this.highlight(this.highlightColor)
+    }
+
+    //listeners: native listners
+    @HostListener('mouseenter')
+    public onMouseMove(){
+        this.highlight('green')
+
+    }
+    @HostListener('mouseleave')
+    public onMouseOut(){
+        this.highlight('pink')
+
+    }
+    private highlight(color: string) {
+        this.element.nativeElement.style.backgroundColor = color;
+    }
+      
+}
+
+app.component.html
+<div class="container">
+   <h1>Attribute Directive</h1>
+   <!--Attribute directive-->
+    <h2 appHighlight [highlightColor]="color">High light me</h2>
+</div>
+
+import { Component } from '@angular/core';
+
+app.component.ts
+
+@Component({
+    selector: 'app-root',
+    templateUrl: 'app.component.html'
+})
+export class AppComponent{
+    color:string = 'red'
+}
+********************************************************************************************
+DOM Manipulation in angular patterns:
+
+1.Via $event Object.
+2.Via Attribute Directive : ElementRef,@HostListener.
+3.Template Reference Variable : #
+
+
+Template Reference variable: #
+
+ To access dom objects inside /across templates.
+
+
+ <div>
+         <h1>Name : {{firstname}}</h1>
+      <input #name  placeholder="Please Enter Your Name" >
+
+     <button class="btn btn-success" (click)="setName(name.value)">Get Value From Template</button>
+    </div>
+export class AppComponent{
+    color:string = 'red'
+    firstname:string ='Default'
+
+    public setName(name:string){
+       this.firstname = name;
+    }
+}
+********************************************************************************************
+Pipe:
+Every applicationn starts out with what seems like a simple task: get data,transform them
+and show them to users.
+
+How to transform the data and show ?
+
+Eg;
+ if you get currency values, i want to show in ui with currency symbols.
+
+Pipes can help to solve this kind of issues
+
+Angular provides lot of built in pipes, you can write your own pipes as well.
+....
+Syntax:
+  some data | nameof the pipe.
+
+Date Formating:
+
+today:any = new Date();
+
+<h3>Today {{today | date }}</h3>
+
+What if i want to customize date according our need?
+
+ dd/mm/yyy - format
+
+Pipes can take input
+
+ {{expression | pipe:input}}
+
+
+Pipe Chaning:
+
+ the output of one pipe can be passed to another 
+
+  {{expression | pipe1 | pipe2 ....}}
+
+
+<div class="container">
+    <h1>Pipes Example</h1>
+    <h2>Date</h2>
+    <h3>Today {{today | date }}</h3>
+    <h3>Today {{today | date:'dd/MM/yyyy' }}</h3>
+    <h3>Some Date {{someDay | date:'short'}}</h3>
+    <hr>
+    <h2>Currency</h2>
+    <h3>Today Stock Value {{stockValue | currency}}</h3>
+    <h3>Today Stock Value {{stockValue | currency:'INR'}}</h3>
+
+    <h3>Strings</h3>
+    <h3>Name {{name | uppercase}}</h3>
+    <h3>Chaining</h3>
+    <h3>Today {{today | date | uppercase }}</h3>
+
+
+</div>
+
+import { Component } from '@angular/core';
+
+
+
+@Component({
+    selector :'app-root',
+    templateUrl: 'app.component.html'
+})
+export class AppComponent{
+
+    //date data
+    today:any = new Date();
+    someDay:any = new Date(1999,6,10);
+
+    //currency data
+    stockValue:number =100.7863;
+
+    //strings
+    name:string = 'subramanian';
+
+}
+********************************************************************************************
+
+What if, the pipe which is not enough from the built in:
+
+Custom Pipe
+
+Pipe is also one the object in angular.
+
+
+
+
+import { Pipe, PipeTransform } from '@angular/core';
+
+
+
+@Pipe({
+    name:'decimalFraction'
+})
+export class DecimalFractionPipe implements PipeTransform{
+  
+    transform(value:number,digit:number=2){
+        //10.789445454  => 10.79
+         return value.toFixed(digit);
+    }
+
+}
+
+<div class="container">
+    <h1>Pipes Example</h1>
+    <h2>Date</h2>
+    <h3>Today {{today | date }}</h3>
+    <h3>Today {{today | date:'dd/MM/yyyy' }}</h3>
+    <h3>Some Date {{someDay | date:'short'}}</h3>
+    <hr>
+    <h2>Currency</h2>
+    <h3>Today Stock Value {{stockValue | currency}}</h3>
+    <h3>Today Stock Value {{stockValue | currency:'INR'}}</h3>
+
+    <h3>Strings</h3>
+    <h3>Name {{name | uppercase}}</h3>
+    <h3>Chaining</h3>
+    <h3>Today {{today | date | uppercase }}</h3>
+
+    <h2>JSON pipe (Note : Which only for Development)</h2>
+    <pre>
+        {{user | json }}
+    </pre>
+    <hr>
+    <h1>Custom Pipe :Decimal Fraction</h1>
+    <h2>Stock Value {{10.7898777 | decimalFraction:3 }}</h2>
+
+
+</div>
+import { NgModule } from '@angular/core';
+//import { AppComponent ,ParentComponent,ChildComponent } from './app.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { ProfileComponent } from './profile.component';
+import {FormsModule} from '@angular/forms';
+import { AppComponent } from './app.component';
+import {HighLightDirective} from './directives/app.highlight.directive';
+import {DecimalFractionPipe} from './pipes/app.decimalfraction';
+
+
+
+@NgModule({
+  //di list: ng wil lookup this list , and create objects and link accordingly
+  //declarations:[AppComponent,ProfileComponent,ParentComponent,ChildComponent],
+  declarations : [AppComponent,HighLightDirective,DecimalFractionPipe],
+  imports : [BrowserModule ,FormsModule],
+  providers: [],
+  ///entry point
+  bootstrap: [AppComponent]
+
+})
+export class AppModule{}
+
+**********************************************************************************************
+
+Task: 
+  I want to display list of products
+   id,name,category,price,qty
+
+You have to display data in tables : Grid View
+
+ -------------------------------------------------------------------------------------------
+   id     name    category qty price Sort : asc and dec : on Name al
+ ------------------------------------------------------------------------------------------
+
+1.You have to create custom pipe for sorting.
+
+**********************************************************************************************
+
+Forms
+ ->Template Driven Forms
+ ->Reactive Forms
+
+Modular Applications
+
+ -submodules
+ -di
+
+Services and Reactive Programming : rx js
+
+
+Ajax : HTTP Programmng
+
+Single Page Application : using Routers
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+Forms:
+
+-Template driven forms.
+
+Form data binding
+Form validation
+
+Steps:
+
+1.inject - Template driven forms which is from 'FormsModule'
+
+import {FormsModule} from '@angular/forms';
+
+
+@NgModule({
+   imports : [BrowserModule ,FormsModule],
+ })
+export class AppModule{}
+
+
+2.Create Model class
+export class PostFormModel{
+    constructor(public id: number, public title: string, public author: string){
+    }
+}
+
+3.create Object for those domain models
+
+export class AppComponent {
+  post: any;
+  constructor() {
+    this.post = new PostFormModel(Math.random(), 'Learn Angular', 'Misko')
+  }
+}
+
+Step 3 : 
+Create inital form Template
+<div class="container">
+  <h1>Post Form</h1>
+  <form>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" id="title" required>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" required>
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+
+  </form>
+</div>
+
+
+Step 4:
+
+Data binding
+   Binding textbox(form controls) with Model Object
+   We have many ways
+  1.through instance variable,$event
+  2.through [(ngModel)]="post.title"
+   ngModel = > it is an object from "FormsModule"
+   ngModel it is dto object=>data transfering between view and component.
+
+//
+Form Control value property is bound with name property of input control.
+
+<input [(ngModel)]="post.title" name="title" type="text" class="form-control" id="title" required>
+
+    <form>
+       <!--TODO: Remove this once testing over-->
+       <pre>{{post | json}}</pre>
+      <div class="form-group">
+         <label for="title">Title</label>
+         <input [(ngModel)]="post.title" name="title" type="text" class="form-control" id="title" required>
+       </div>
+       <div class="form-group">
+         <label for="name">Name</label>
+         <input [(ngModel)]="post.author" name="author" type="text" class="form-control" id="name" required>
+       </div>
+   
+       <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+
+*****************************************************************************************
+NgForm : 
+ It is object representation of "form" element.
+ Can be used to control form validations.
+ in order to access the NgForm object inside template. You have to use template reference
+
+<form #postForm> =>postForm points HTMLForm Object
+
+ngForm is Object which inherits HTMLForm
+
+class ngForm extends HTMLForm{
+  +extra behavior=>Ready made validation code
+  +form submission behviours
+}
+
+
+What is meaning of this code <form #postForm>?
+
+ HTMLFORMobject ----postPorm
+
+dummy code for the above template
+ let postForm =  new HTMLForm();
+
+what we need
+ let postForm = new NgForm()
+
+<form #postForm="ngForm"> 
+
+
+The variable postForm is now a reference to the NgForm 
+directive that governs the form as a whole.
+
+The NgForm directive:
+
+What NgForm directive? You didn't add an NgForm directive.
+
+Angular did. Angular automatically creates and attaches
+ an NgForm directive to the <form> tag.
+
+"The NgForm directive supplements the form element with additional features. 
+
+
+It holds the controls you created for the elements  with an "ngModel directive" and name attribute,
+ and monitors their properties, including their validity.
+ 
+It also has its own valid property which is true only if every contained control is valid."
+
+Note: NgForm is built Object ,has more logic for simlifying our form handling process.
+
+********************************************************************************************
+NgModel :
+
+ 1.Transfering data between UI and Controller .
+
+NgModel not only for data transfer, which does so many other things beyond twoway data binding.
+
+Track control(form element) state and validity with ngModel:
+.............................................
+
+Form element states:
+
+State 	                         Class if true 	  Class if false
+The control has been visited.  	  ng-touched 	    ng-untouched
+The control's value has changed.  ng-dirty 	    ng-pristine
+The control's value is valid. 	  ng-valid 	    ng-invalid
+
+Anguar provides built-in css styles for forms
+ eg:
+  ng-touched
+   ......
+
+State Tracking Steps:
+
+1.Look but don't touch.
+2.Click inside the name box, then click outside it.
+3.Add slashes to the end of the name.
+4.Erase the name.
+
+ng-untouched - if you dont touch
+ng-touched - if you touch
+ng-dirty - if you changed
+ng-invalid - if you remove all-empty field.
+
+
+Add custom CSS for visual feedback:
+
+Valid + Required - green Color
+Valid + optional - white color
+Invalid (required | optional) - red Color
+
+Angular Css:
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
+****************************************************************************************
+
+Adding validation block to our code:
+...................................
+
+NgModel is Child Object of FormControl Object
+
+class  Input{
+ 
+}
+class NgModle extends Input{
+  //extra features : state tracking,enabling validation.
+}
+
+<input #Xx> -Here xxPoints only Input
+
+<input #Xx="ngModel"> -Here xx points ngModel
+
+ <div class="form-group">
+         <label for="title">Title</label>
+         <input [(ngModel)]="post.title" name="title" #errorMsg1="ngModel" type="text" class="form-control" id="title" required>
+       </div>
+       <div [hidden]="errorMsg1.valid || errorMsg1.pristine" class="alert alert-danger">
+         title is required
+       </div>
+       <div class="form-group">
+         <label for="name">Name</label>
+         <input [(ngModel)]="post.author"  #errorMsg2="ngModel" name="author" type="text" class="form-control" id="name" required>
+       </div>
+       <div [hidden]="errorMsg2.valid || errorMsg2.pristine" class="alert alert-danger">
+         Author is required
+       </div>
+*******************************************************************************************
+
+Disabling submit button in case any validation fails:
+
+  <button type="submit" class="btn btn-success" [disabled]="!postForm.form.valid">Submit</button>
+
+*******************************************************************************************
+Select control and how to populate data.
+
+
+<div class="container">
+   <h1>Form Application : Post Registration Form</h1>
+   <div [hidden]="submitted">
+    <form #postForm="ngForm" (ngSubmit)="onSubmit()">
+       <!--TODO: Remove this once testing over-->
+       <pre>{{post | json}}</pre>
+      <div class="form-group">
+         <label for="title">Title</label>
+         <input [(ngModel)]="post.title" name="title" #errorMsg1="ngModel" type="text" class="form-control" id="title" required>
+       </div>
+       <div [hidden]="errorMsg1.valid || errorMsg1.pristine" class="alert alert-danger">
+         title is required
+       </div>
+       <div class="form-group">
+         <label for="name">Name</label>
+         <input [(ngModel)]="post.author"  #errorMsg2="ngModel" name="author" type="text" class="form-control" id="name" required>
+       </div>
+       <div [hidden]="errorMsg2.valid || errorMsg2.pristine" class="alert alert-danger">
+         Author is required
+       </div>
+
+       <div class="form-group">
+         <label for="category">Category</label>
+         <select class="form-control" id="category" name="category" 
+         required [(ngModel)]="post.category">
+           <option *ngFor="let cat of categories"  [value]="cat">
+             {{cat}}
+           </option>
+         </select>
+       </div>
+
+       <button type="submit" class="btn btn-success" [disabled]="!postForm.form.valid">Submit</button>    </form>
+    </div>
+<!--Details Page-->
+<div class="container" [hidden]="!submitted">
+   <h2>You submitted the following:</h2>
+   <div class="row">
+     <div class="col-xs-3">Id : </div>
+     <div class="col-xs-9  pull-left">{{ post.id }}</div>
+   </div>
+   <div class="row">
+     <div class="col-xs-3">Title : </div>
+     <div class="col-xs-9  pull-left">{{ post.title }}</div>
+   </div>
+   <div class="row">
+     <div class="col-xs-3">Author : </div>
+     <div class="col-xs-9 pull-left">{{ post.author }}</div>
+   </div>
+   <div class="row">
+      <div class="col-xs-3">Category : </div>
+      <div class="col-xs-9 pull-left">{{ post.category }}</div>
+    </div>
+   <br>
+   <button class="btn btn-primary" (click)="submitted=false">GoBack</button>
+ </div>
+    
+
+</div>
+
+import { Component } from '@angular/core';
+import { PostType } from './types/post.type';
+import { PostFormModel } from './formmodels/post.form.model';
+
+
+
+@Component({
+    selector:'app-root',
+    templateUrl :'app.component.html'
+})
+export class AppComponent{
+ post:any
+ submitted: boolean = false;
+ categories:Array<string> = ["User interface","MicroServices","Devops"];
+   constructor(){
+    this.post = new PostFormModel(Math.random(), 'Learn Angular', 'Misko',this.categories[0]);
+  }
+  onSubmit(){
+    console.log(this.post);
+    this.submitted = true;
+  }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+Angular and Modularity:
+.......................
+
+Moduarity is breaking application into small parts.
+
+Types of modularity:
+
+1.physical  modularity
+  -folders and files
+
+  app
+    |
+    folder1
+       |
+       files
+
+basic standards
+
+  app
+   |
+   products
+      |
+      files
+   customers
+     |
+     files
+  common/utitles
+    
+   mockdata
+   
+types of files
+   -component/service/pipes/directives --- app.component.ts
+   -module file -  app.module.ts, product.module.ts
+   -testing files- app.component.spec.ts
+   -html files - templates
+   -css files
+
+component
+  compoent file
+  spec
+  testing
+  html
+  css
+
+How it is achived using es 6 modules - export,import,export default.
+
+**************
+Logical Modularity
+  
+During runtime
+It is angularity modularity.
+Object Organization
+   
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+Rules :
+
+1.Every NG Application must have one single Module Object - Container/Application
+  it is specificied in a file called app.module.ts - 
+
+2.Application can contain submodules and it may contain its submodules like so....
+
+3.Any Submodule, must be linked in main module, so that submodules objects will created.
+  similary sub-child modules must be linked its parent modules
+ linking is done through ; imports
+
+4.Any Object (cmp,directive,pipe,service) is created with in that module wont available outside  that module including submodules
+   -Private to that modules.
+  if want to access outside we have configuration.
+
+	
+5.app folder must contain only appcomponent , which is entry point to your application
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+Use case 1: 
+
+1.create folder 
+
+2.create simple component
+
+3.di
+
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+import { GreeterComponent } from './greeter/greeter.component';
+
+@NgModule({
+  declarations: [
+    AppComponent ,GreeterComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+import { Component } from '@angular/core';
+
+
+@Component({
+    selector: 'app-greeter',
+    templateUrl: 'greeter.component.html'
+})
+export class GreeterComponent{
+
+}
+
+above code, we have injected inside app module.
+this is good practice, then ,
+...........................................................................................
+
+Create Sub Module:
+
+greeter.module.ts
+
+
+import { NgModule } from '@angular/core';
+import { GreeterComponent } from './greeter.component';
+
+
+@NgModule({
+    declarations:[GreeterComponent],
+    imports:[],
+    providers:[],
+    exports:[GreeterComponent] //list of things will be available outside this module
+})
+export class GreeterModule{
+
+}
+
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+import {GreeterModule} from './greeter/greeter.module';
+
+@NgModule({
+  declarations: [
+    AppComponent ],
+  imports: [
+    BrowserModule,GreeterModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+Major tasks:
+
+1.create folder -one time
+2.create files
+3.declare classes,
+4.dependency injection
+
+
+How to automate create folder,files,declare class,di?
+
+ angular cli tool
+
+How to use Angular cli?
+
+create a folder and module
+...............................
+
+>ng g m header
+CREATE src/app/header/header.module.spec.ts (275 bytes)
+CREATE src/app/header/header.module.ts (190 bytes)
+
+
+create module and updates app module
+.....................................
+
+>ng g m header --module=app
+CREATE src/app/header/header.module.spec.ts (275 bytes)
+CREATE src/app/header/header.module.ts (190 bytes)
+UPDATE src/app/app.module.ts (389 bytes)
+
+create Component , inside greeter folder, we need to inject greeter module into app
+
+$>ng g c greeter --module=greeter --export=true  --inlineStyle=true   --skipTests=true
+
+********************************************************************************************
+
+Services;
+
+object having biz apis
+
+
+Types of services;
+
+Based on biz function
+
+1.sync -block
+2.async - non blocking
+ 
+async 
+ -callbacks -traditional
+ -Promise-
+ -Rxjs - async reactive implementation
+
+reactive
+ -observables design pattern - Producer ---Subscriber
+ -Iterator design pattern  -pull based
+ -functional programming -pure functions
+
+Angular uses rxjs 
+
+ -http calls
+ -data observables
+
+
+Rxjs Provides an Objects:
+
+1.Observable
+  -create stream
+  subscribe-- to read data from the stream
+2.Subject
+
+Opeators ;
+
+- api methods :  pure functions
+
+-map,filter,flatmap...
+-tap
+  
+****************************************************************************************
+
+rxjs---typescript
+
+typescript uses type definition(file.d.ts) - index.d.ts
+
+ js--defition--ts
+
+Angular rxfication : 
+ RXJS---added type defintion---added wrappers.
+*******************************************************************************************
+
+@Injectable - is used to decorator
+
+providers :[ServiceName]
+
+@Injectable({
+providerIn : 'root'
+})
+   
+/////////////////////
+
+of
+from
+fromEvent
+
+data processing operators:
+
+1.map
+2.fitler
+3.take
+etc.....
+
+*******************************************************************************************
+HttpProgramming
+
+import { HttpClientModule } from '@angular/common/http';
+
+Http service built in object
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+SPA:
+
+Routing Basics
+..............
+Master routing -main 
+Nested routing -sub menu
+
+routingmodule
+ -master
+ -module specific routing.
+
+
+Route module
+
+Route configuration
+
+Route module injection
+
+****************************************
+Objects
+1.RouterOutLet
+   -place components
+2.Router
+3.Activated Route
+4.Location Object
+**********************************************************************
+
+urls:
+
+    
+ '' -home
+
+ 'name' - named url
+ 'dynamic:id' -dynamic router
+  '**' - no match found
+
+Route config
+
+  const routconfig:Routes= [{
+},{
+
+}]
+  
+root
+redirect /xxx ---
+*******************************************************************************************
+
+Data Transfer during navigation:
+
+ data
+
+****************************************************************************************
+
+rxjs implementation:
+ 
+1.HTTP calls
+2.Routers - Observable
+
+ActivatedRoute:
+**********************************************************************************************
+js app dev
+  finally build  javascript  : bundle.js --->Break the bundle into smaller units
+   app.bundle.js,styles.bundle.js,.....
+
+lazy loading:
+
+http://www.example.com <------------->bundle.js
+
+---------------------------------------------------------------------------------------
+ Home  contactus admin ................
+----------------------------------------------------------------------------------------
+***********************************************************************************
+**********************
+
+
+download js files on demand : this is called lazy loading. 
+
+how to enable lazy loading :
+ ->modular routing.
+******************************************************************************************
+
+ngOnInit -called , when component is mounted /initalized
+  -page initalization we have done
+
+ngOnDestroy - called when component is removed from the current flow. 
+  -write some clean up activities
+
+ let subscription = this.service.findAll()
+
+ subscription.unsub();
+///////////////////////////////////////////////////////////////////////////////////////////
+
+Case Study :
+
+Create simple Profile Management application
+
+menu
+
+ 0.Home
+   Display list of profiles already
+
+ 1.new Profile
+     id,name,city
+ when i click profile link
+ show profile form
+ get input, add validation...
+ submit
+   profile information should be passed to................>service ,Profile Service
+  save -get profile object and save
+      
+  list ----
+
+ 2.list Profile
+
+   -->load profiles  into screen in tabular form
+  --------------------------------------------------------------------------------------
+   id   name   city - view
+ ---------------------------------------------------------------------------------------
+  Use router to navigate to the next page display profies in card view.
+
+ list profile must be in a seprate routing module : profile.routing.ts
+
+*****************************************************************************************
+
+UI Components
+ Ionic Components are built with web standards using HTML, CSS, and JavaScript. 
+
+Though the components are pre-built, they're designed from the ground up to be highly customizable so apps can make each component their own, allowing each app to have its own look and feel. More specifically, Ionic components can be easily themed to globally change appearance across an entire app
+
+Adaptive Styling
+Adaptive Styling is a built-in feature of Ionic Framework which allows app developers to use the same code base for multiple platforms. Every Ionic component adapts its look to the platform on which the app is running on. For example, Apple devices, such as the iPhone and iPad, 
+ use Apple's own iOS design language. Similarly, Android devices use Google's design language called Material Design.
+
+Navigation
+
+Traditional web apps use a linear history, meaning that the user navigates forward to a page and can hit the back button to navigate back. An example of this is clicking around Wikipedia where the user is going forward and backward on the browser's linear history stack.
+
+In contrast, mobile apps often utilize parallel, "non-linear" navigation. For example, a tabbed interface can have separate navigation stacks for each tab, making sure the user never loses their place as they navigate and switch between tabs.
+
+Ionic apps embrace this mobile navigation approach, supporting parallel navigation histories that can also be nested, all while maintaining the familiar browser-style navigation concepts web developers are familiar with
+
+Native Access
+An amazing feature of apps built with web technologies (such as Ionic apps!) is that it can run on virtually any platform: desktop computers, phones, tablets, cars, refrigerators, and more! The same code base for Ionic apps can work on many platforms because it is based on web standards and common APIs that are shared across these platforms.
+
+Theming
+At the core, Ionic Framework is built using CSS which allows us to take advantage of the flexibility that CSS properties (variables) provide. 
+
+
+Cross Platform
+
+Ionic is built from the ground up to make development easy, no matter what platform you are building for. Ionic apps are truly cross-platform: able to run as an Android, iOS, Electron, and Progressive Web App (PWA), all from a single codebase
+
+
+Hardware APIs:
+In a native application, it's common to make API calls to communicate with the device, such as opening the camera or accessing geolocation. These API calls won’t work when called in a web environment because there’s no native bridge. There are a few ways Ionic handles this
+
+Ionic Native
+Ionic Native has its own internal logic to detect if it is inside of a native environment. Instead of throwing a runtime error, it will print a warning if it is not a native environment and there are no Cordova plugins available. The app won’t break and it will continue to work, although without the native functionality.
+
+Platform Detection
+
+this.platform.ready().then(() => {
+  // 'hybrid' detects both Cordova and Capacitor
+  if (this.platform.is('hybrid')) {
+    // make your native API calls
+  } else {
+    // fallback to browser APIs
+  }
+});
+
+We can add native modules as we require
+*********************************************************************************************
+
+Storage :
+
+Most apps at some point will need to store some sort of data locally. Whether it’s storing some JSON from an XHR request, or saving an auth token, there are many different storage options available. On top of this, if the app is running in a native environment, it is possible to create a full SQLite database and store data there. All of these different storage mechanisms have their own advantages and disadvantages, but Ionic developers should not have to worry about that.
+
+
+Ionic Storage
+In this case, Ionic’s Storage library is a perfect candidate for the multi-environment use case. Built on top of the well tested LocalForage library, Ionic’s storage class provides an adaptable storage mechanism that will pick the best storage solution for the current run time.
+
+Currently this means it will run through SQLite for native, IndexedDB (if available), WebSql, or Local Storage. By handling all of this, it allows writing to storage using a stable API.
+
+class MyClass {
+  constructor(public storage: Storage) {}
+
+  async setData(key, value) {
+    const res = await this.storage.set(key, value);
+    console.log(res);
+  }
+
+  async getData(key) {
+    const keyVal = await this.storage.get(key);
+    console.log('Key is', keyVal);
+  }
+}
+
+Web View
+
+Web Views power web apps on native devices.
+
+The Web View is automatically provided for apps integrated with Capacitor.
+
+For Cordova, Ionic maintains a Web View plugin. The plugin is provided by default when using the Ionic CLI.
+
+What is a Web View?
+Ionic apps are built using web technologies and are rendered using Web Views, which are a full screen and full-powered web browser.
+
+Modern Web Views offer many built-in HTML5 APIs for hardware functionality such as cameras, sensors, GPS, speakers, and Bluetooth, but sometimes it may also be necessary to access platform-specific hardware APIs. In Ionic apps, hardware APIs can be accessed through a bridge layer, typically by using native plugins which expose JavaScript APIs.
+******************************************************************************************
+
+Installing Ionic
+
+npm install -g @ionic/cli
+
+Start an App
+
+The three most common starters are the blank starter, tabs starter, and sidemenu starter. Get started with the ionic start command:
+
+ionic start myApp tabs
+
+
+Run the App
+
+cd myApp
+ionic serve
+
+
+Build Your first App:
+....................
+
+
+
+Deploying in Mobile
+
+Android
+
+Capacitor Setup
+
+Life cycles
+
+Angular Routing
+
+
+Configurations
+
+**************************************************************************************
+
+
+Components:
+...........
+header
+footer
+tab
+list
+grid
+....
+
+Typography
+
+
+
+
+
+
+
+
+Layout :
+
+List View
+<ion-content>
+  <ion-item>
+    <ion-label>Item 1</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>Item 2</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>Item 3</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>Item 4</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>Item 5</ion-label>
+  </ion-item>
+</ion-content>
+
+Grid View
+
+
+
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Item 1</ion-label>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label>Item 2</ion-label>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label>Item 3</ion-label>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label>Item 4</ion-label>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label>Item 5</ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+*********************
+
+src
+ |
+ app
+  |
+  profile
+    |
+    profile.routing.ts --forChild
+    profile.module.ts  
+    profile.component.ts
+    profile.component.html
+        -add, list
+
+ app.component
+    
+ app.routing.module. --forRoot
+ app.module --- profile
+
+******************************************

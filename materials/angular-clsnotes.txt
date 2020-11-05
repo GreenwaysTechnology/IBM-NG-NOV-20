@@ -1,0 +1,217 @@
+
+Dependency injection:
+
+object creation auotmatically
+object linking 
+
+
+Angular :
+
+file linking
+ main.ts
+    |
+    app.module.ts
+            |
+            app.component.ts
+
+logical modularity
+ Object linking.
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+
+DI:
+ declarations: [],
+  imports: [],
+  providers: [],
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+View :
+  Presentation :
+
+  static html 
+
+you need data for dynmaic html.
+
+Models: MVC 
+
+
+M-
+V -VIEW
+C  CONTROLLER - Component.
+
+
+Databinding:
+
+1.interpolation 
+
+  transfering model from controller to view.
+
+model could be primitive,object,array.
+
+Template :
+
+  collection of html elements and angular instrutions
+
+angular instructions
+
+ collection of symbols
+
+ {{}} - interpolation - data place holder.
+ []
+ #
+
+models:
+ are instance variables of compoentents
+
+ 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+data should not initalized inside constructor.
+
+Component life cycle methods;methods called automatically.
+
+-during component initalization
+
+-during component is destroyed
+
+life cycle mehtods are given interfaces.
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+Service Object creations:
+
+
+two ways
+
+Way -1 old way
+
+@Injectable()
+export class ProfileService {
+    constructor() { }
+    //api
+    getProfile() {
+        return PROFILE;
+    }
+}
+
+app.module.ts
+
+providers : [ProfileService]
+
+
+way -2 -new way
+	
+@Injectable({})
+export class ProfileService {
+    constructor() { }
+    //api
+    getProfile() {
+        return PROFILE;
+    }
+}
+
+
+app.module.ts
+
+providers : []
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+Component Communication:
+........................
+
+two or more components can communcate themself.
+
+For exchanging data.
+
+
+1. parent ->child 
+2. child -> parent
+3. sibilings
+
+Parent-child : Property Binding
+................................
+
+Property binding syntax : []
+    
+
+What if i want format data?
+
+Angular provides an options called - Pipes
+
+
+Custom Pipe:
+
+Pipe also object
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Array binding:
+//////////////
+
+*ngIf=condition
+  do
+else
+ do this
+
+structural directive add or remove dom elements dynamically.
+This creates performance issue when larget datasets are added or removed dynamically.
+
+Soution:
+ hide /show of html elements
+
+html language provides an attribute - hidden  : booleans
+
+ <div hidden>
+ <div enabled>
+
+Attribute binding: dynamically change the value of html attributes?
+ []
+
+ <div hidden> - static attribute
+
+  <div [hidden]="booleancondition"> => true -hide,false->show
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
