@@ -187,6 +187,560 @@ Attribute binding: dynamically change the value of html attributes?
  <div hidden> - static attribute
 
   <div [hidden]="booleancondition"> => true -hide,false->show
+  <img [src]="heroImageUrl"> 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Use cases of []
+ -[] - for property binding - custom attributes on custom elements
+  <app-childprofile [details]="value">
+ -[] -for attribute binding -  for dynamic html attribute binding
+   <div [hidden]>
+   <div [enabled]>
+   <img [src]="dynamicimageurl">
+-[] - for dynamic css binding - for dynamic css attribute value binding
+
+
+CSS integration:
+
+ -global css -  style sheet applied to whole application
+ -component level css
+    style sheet defined for only component.
+
+
+
+ -global css :
+
+   - style.css file for custom global css.
+
+ thrid party css frameworks
+   -bootstrap
+   -google material
+
+ -component level css
+    style sheet defined for only component.
+
+  inline
+     -style: []
+  external
+     styleUrl-['./']
+
+css can be added on element using two attributes
+
+ class attribute - takes css styles from style sheets
+ style attribute  - inline /element css.
+
+
+dynamic css:
+
+  css values can be applied based on condition.
+
+ [class.styleName]="condition"
+ [style]
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Use interaction:
+
+ (nameofEvent)="listener".
+ 
+onclick - Click
+
+Event Object
+
+ it object through which you can get target object values
+
+$event -  variable which holds event object 
+
+
+how to show value of textbox in screen
+
+Two way data binding:
+
+[(ngModel)]
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Custom Events:  Commponent interaction; child parent.....
+..........................................................
+
+two components
+
+child 
+
+parent
+
+
+
+import { Component, Output, EventEmitter } from '@angular/core';
+
+@Component({
+    selector: 'app-parent',
+    template: `
+             <div>
+                 <h1>Parent</h1>
+                 <h2>The Value From Child {{value}}</h2>
+                 <hr>
+                 <app-child (onSendRequest)="getValue($event)" ></app-child>
+             </div>
+    `
+})
+export class ParentComponent {
+    value: any;
+    public getValue(event: any) {
+        this.value = event;
+    }
+}
+@Component({
+    selector: 'app-child',
+    template: `
+        <div>
+           <h1>Child</h1>
+           <button (click)="onSend()">Send Data To Parent</button>
+        </div>
+    `
+})
+export class ChildComponent {
+
+    //custom event
+    @Output()
+    onSendRequest = new EventEmitter<string>();
+
+    public onSend() {
+        //send data to parent
+        this.onSendRequest.emit('Hello,I am from Child')
+    }
+}
+
+
+@Component({
+    selector: 'app-events',
+    templateUrl: './app.event.component.html'
+})
+export class EventComponent {
+    txtValue1: any = "..."
+    txtValue2: string = "...";
+    txtValue3: string = "....";
+    txtValue4: string = ".....";
+
+    public onClick(data) {
+        alert('button is clicked' + data)
+    }
+    public onInput(event: any) {
+        console.dir(event.target);
+        //console.log('on input' + event.target.value)
+        this.txtValue1 = event.target.value;
+    }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Modularity:
+
+es 6 modules
+Angular modules.
+
+How to build realtime apps
+
+ src
+  |
+  app
+   |
+   services
+      orders
+   pipes
+   directives
+   customers
+   orders
+   payments
+   accounts
+   app.module
+   app.component
+
+
+payments
+   |
+   services
+   components
+   pipes
+
+
+code refactoring with modularation:
+
+you dont need to create component,module,folders manually.
+
+you can use angular cli tool.
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+import { NgModule } from '@angular/core';
+import { ProfileModule } from './profile/profile.module';
+
+@NgModule({
+  imports: [
+    ProfileModule
+  ],
+  exports: [ProfileModule]
+})
+export class SharedModule { }
+
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+import { SharedModule } from './shared.module';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    SharedModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Barrel Export:
+.............
+
+import { Component, OnInit } from '@angular/core';
+
+@angular - folder
+core -folder
+main folder/subfolder.
+
+Component - file - component.ts
+OnInit - onInit.ts
+
+import { ProfileService } from '../services/profile.service';
+
+-services - folder
+-profile.service -file
+
+import { Component} from '@angular/core/component';
+import {  OnInit } from '@angular/core/oninit';
+
+Barrel export:
+
+ go to any folder
+ under that folder create file called index.ts
+ you have to reexport 
+
+services
+  |
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Forms:
+......
+ ->Template Driven Forms
+ ->Reactive Forms
+
+how to access dom elements(any html element )
+
+-inside component
+ $event
+ directive - attribute directive.
+advanced....@ViewChild....
+
+-inside template
+   Template reference.
+
+<input  #myvar>
+ myvar is variable points textbox object
+
+<input [value] =myvar.target.value >
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Reactive Programming:
+....................
+
+What is Reactive programming?
+
+ Programming paradigm based on many design principles and styles.
+
+-Observable design pattern
+-Iterator 
+-functional programming
+
+Why Reactive Programming?
+
+ -Data streaming apps
+
+Data Streaming:
+  Flow of data from one place to another .
+
+Reactive programming helps
+While streaming  , you can observe , do usefull data processing in sync and async ways.
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+Observable Design Pattern:
+
+Actors
+ -Publisher
+ -Subscriber
+ -Subscription
+
+List--0,1,1,2,98...
+
+Program read list - for, - iterations
+
+
+Reactive programming is concept. where is impl?
+
+most of the pl implements reactive programming via libs and frameworks
+
+java - rxjava,reactor
+js -- rxjs - implemenations
+
+Angular and reactive programming:
+.............................
+
+Ng has adapated reactive programing via rxjs.
+
+ng uses rxjs internally.
+
+ng most of data driven apis powered with rxjs.
+
+ng uses abstraction for rxjs . you dont need to use raw rxjs api directly.
+  -rxfixation ; process of abstracting rxapis inside framework.
+
+
+Rx js has lot of objects:
+
+1.Observable
+2.Subject
+  -BehaviourSubject
+  -AsyncSubject
+3.Scheduler
+4.Subscription
+5.Observer
+
+Operators: - methods-functions
+api to create,process process
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+Angular areas of rxjs
+
+ -services
+ -routers
+ -forms
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Routing + RXJS+HTTP
+.....................
+
+
+Routing Module -
+Route Configuration
+  url - view mappin
+Router-Outlet
+Router
+
+/////
+routerLink -  Directive -href
+
+routerLink = "/foo" - static url mapping
+[routerLink] = "dynamic url"
+
+///
+
+app.routing module:
+
+common route configuration: master menu confriguration
+
+Named Paths
+
+{
+ path : 'home'
+ component:'HomeComponent'
+}
+
+{
+ path : 'profile'
+ component:profileComponent
+}
+
+{
+ path : 'profile:/id'
+ component:profileDetailsComponent
+}
+
+/home
+  render HomeComponent
+
+Submenu
+  admin
+     -create User
+      -edit user
+      -serach
+
+{ path: 'admin', 
+    component: adminComponent,
+   children: [
+     {path:'createuser' , component:createusercmp}
+
+   ] }
+/admin/createuser
+
+child routing:
+ lazy loading:
+ .............
+
+when the modules are required that time only modules loaded into browser
+
+lazy loading is enabled via loadChildren Property:
+..................................................
+
+other route objects:
+
+1.ActivatedRoute
+   -used to access route information inside component
+   url parameters
+
+
+2.Location 
+  used to navigate browser forward and backward
+
+3.Router 
+  used to programatic navigation.
+     this.router.navigate(['/superheroes', { id: heroId, foo: 'foo' }]);
+
+
+Route Guard:
+...........
+ 
+ Guard -secure access.
+
+you are allowed to access some menus.
+
+Guard defines rules that can you access route or not.
+//////////
+
+Your app
+  |
+  yourModule
+    |
+    yourmodule routering config
+    yourmodule file
+    components
+     
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+http : Rest api integration.
+
+import { HttpClientModule } from '@angular/common/http';
+
+
+  imports: [
+    BrowserModule,
+    FormsModule,
+    // import HttpClientModule after BrowserModule.
+    HttpClientModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'My-Xsrf-Cookie',
+      headerName: 'My-Xsrf-Header',
+    }),
+
+
+3. di of HttpClient- built in service object powered with observable.
+
+ you can make http calls  -get,post,delete,put.
+
+
+rxjs offers error handling operators
+ catchError.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Services:
+
+                                   api
+                            --------------------------
+                           sync api               async api
+
+
+async api:
+
+ -callback based
+ -promises
+ -reactive based - rxjs- Observable
+   -async
+   -data streaming
+   -processing
+
+angular + rxjs = angular rxjs =>
+
+ angular provides a mini framework for rxjs - angularrxjs =rxjsfication.
+
+ ajax programming. => xhr
+
+ XHR -JS API
+ ANGULAR USES XHR -with an object "HttpClient"
+
+
+low level
+
+ function reqListener () {
+  console.log(this.responseText);
+}
+
+var oReq = new XMLHttpRequest();
+oReq.addEventListener("load", reqListener);
+oReq.open("GET", "http://www.example.org/example.txt");
+oReq.send();
+ 
+
+
+HttpClient ---uses XHR API
+
+IN the begining , angular bound HttpClient ---- Promises
+
+later ,angular bound HttpClient ---- Observable
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 
 
