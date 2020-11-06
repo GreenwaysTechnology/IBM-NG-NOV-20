@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
     selector: 'app-profilechild',
     template: `
-      <h2>{{title}}</h2>
+      <h2 style="color:blue">{{title}}</h2>
       <div>
       Boolean Attribute
        <h1 [hidden]="isHidden">Hello,I am hidden</h1>

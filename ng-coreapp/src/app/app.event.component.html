@@ -1,0 +1,28 @@
+<h3>Event Component Demo</h3>
+<div>
+    <button class="btn btn-success" (click)="onClick('hello')">Click</button>
+</div>
+<div>
+    <h2>Textbox value: {{txtValue1}}</h2>
+    <input (input)="onInput($event)" >
+</div>
+<!--Get value and update ui without listner function-->
+<div>
+    <h2>Textbox value: {{txtValue2}}</h2>
+    <input (input)="txtValue2=$event.target.value" >
+</div>
+<!--attribute binding and event value binding with default value-->
+<div>
+    <h2>Textbox value: {{txtValue3}}</h2>
+    <input [value]="txtValue3"    (input)="txtValue3=$event.target.value" >
+</div>
+<!--attribute binding and event value binding with default value-->
+<!--ngModel with [()] banana in a box notation-->
+<div>
+    <h2>Textbox value: {{txtValue4}}</h2>
+    <input [(ngModel)]="txtValue4">
+</div>
+<div>
+    <h1>Child-Parent Component</h1>
+    <app-parent></app-parent>
+</div>
